@@ -68,6 +68,17 @@
       </div>
     </div>
   </section>
+<script>
+  const iframe = document.querySelector("iframe");
+  const indicator = document.getElementById("live-indicator");
 
+  // Simple fallback (always show for now)
+  // Later we can connect YouTube API for real detection
+
+  setTimeout(() => {
+    indicator.style.display = "block";
+  }, 2000);
+</script>
+  
 </body>
 </html>
