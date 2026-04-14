@@ -1,3 +1,4 @@
+// MOBILE MENU
 const menuToggle = document.getElementById("menu-toggle");
 const navLinks = document.getElementById("nav-links");
 
@@ -13,6 +14,7 @@ navItems.forEach(function (link) {
   });
 });
 
+// LOADER
 window.addEventListener("load", function () {
   const loader = document.getElementById("loader");
 
@@ -21,6 +23,7 @@ window.addEventListener("load", function () {
   }, 1000);
 });
 
+// GALLERY LIGHTBOX
 const galleryImages = document.querySelectorAll(".gallery-preview");
 const lightbox = document.getElementById("gallery-lightbox");
 const lightboxImage = document.getElementById("lightbox-image");
@@ -47,7 +50,7 @@ lightbox.addEventListener("click", function (event) {
 // COUNTDOWN TIMER
 const eventDate = new Date("December 15, 2026 22:00:00").getTime();
 
-const countdownFunction = setInterval(function () {
+setInterval(function () {
   const now = new Date().getTime();
   const distance = eventDate - now;
 
@@ -62,10 +65,12 @@ const countdownFunction = setInterval(function () {
   document.getElementById("seconds").innerText = seconds;
 
   if (distance < 0) {
-    clearInterval(countdownFunction);
     document.querySelector(".countdown-section").innerHTML = "<h3>The Event Has Started 🔥</h3>";
   }
 }, 1000);
+
+// POSTS SYSTEM
+let allPosts = [];
 
 document.addEventListener("DOMContentLoaded", function () {
   const container = document.getElementById("posts-container");
@@ -73,66 +78,46 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch("posts.json")
     .then(res => res.json())
     .then(posts => {
-      container.innerHTML = "";
-
-      posts.forEach(post => {
-  container.innerHTML += `
-  <div class="post-card">
-    <img src="${post.image}" class="post-img">
-    <h3>${post.title}</h3>
-    <small>${post.date} • ${post.category}</small>
-    <p>${post.body.substring(0, 120)}...</p>
-    <a href="sermon.html?title=${encodeURIComponent(post.title)}&body=${encodeURIComponent(post.body)}&date=${post.date}&image=${post.image}&video=${encodeURIComponent(post.video)}" class="read-btn">Read More</a>
-  </div>
-`;
-      });
+      allPosts = posts;
+      displayPosts(posts);
     })
     .catch(() => {
       container.innerHTML = "<p>Failed to load sermons.</p>";
     });
 });
 
-async function loadPosts() {
+// DISPLAY POSTS
+function displayPosts(posts) {
   const container = document.getElementById("posts-container");
-  if (!container) {
-    console.log("posts-container not found");
-    return;
-  }
+  container.innerHTML = "";
 
-  const url = "https://raw.githubusercontent.com/Pastorpaul27/revival-fire-website/main/posts/fire-revival.md";
-  console.log("Loading post from:", url);
-
-  try {
-    const response = await fetch(url);
-    console.log("Response status:", response.status);
-
-    if (!response.ok) {
-      throw new Error("Post file not found");
-    }
-
-    const text = await response.text();
-    console.log("Loaded text:", text);
-
-    const titleMatch = text.match(/title:\s*(.*)/);
-    const dateMatch = text.match(/date:\s*(.*)/);
-    const parts = text.split("---");
-    const body = parts.length >= 3 ? parts[2].trim() : "";
-
-    const title = titleMatch ? titleMatch[1].trim() : "No Title";
-    const date = dateMatch ? dateMatch[1].trim() : "";
-    const preview = body.length > 160 ? body.substring(0, 160) + "..." : body;
-
-    container.innerHTML = `
-      <div class="post">
-        <h3>${title}</h3>
-        <small>${date}</small>
-        <p>${preview}</p>
+  posts.forEach(post => {
+    container.innerHTML += `
+      <div class="post-card">
+        <img src="${post.image}" class="post-img">
+        <h3>${post.title}</h3>
+        <small>${post.date} • ${post.category}</small>
+        <p>${post.body.substring(0, 120)}...</p>
+        <a href="sermon.html?title=${encodeURIComponent(post.title)}&body=${encodeURIComponent(post.body)}&date=${post.date}&image=${post.image}&video=${encodeURIComponent(post.video)}" class="read-btn">Read More</a>
       </div>
     `;
-  } catch (error) {
-    console.error("Sermon load error:", error);
-    container.innerHTML = "<p>Failed to load sermons.</p>";
+  });
+}
+
+// FILTER POSTS
+function filterPosts(category) {
+  if (category === "All") {
+    displayPosts(allPosts);
+  } else {
+    const filtered = allPosts.filter(p => p.category === category);
+    displayPosts(filtered);
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadPosts);
+// SEARCH POSTS
+function searchPosts(query) {
+  const filtered = allPosts.filter(p =>
+    p.title.toLowerCase().includes(query.toLowerCase())
+  );
+  displayPosts(filtered);
+}
