@@ -69,33 +69,39 @@ const countdownFunction = setInterval(function () {
 
 async function loadPosts() {
   const container = document.getElementById("posts-container");
+  if (!container) return;
 
   try {
-    const response = await fetch("https://api.github.com/repos/Pastorpaul27/revival-fire-website/contents/posts");
-    const data = await response.json();
+    const response = await fetch(
+      "https://raw.githubusercontent.com/Pastorpaul27/revival-fire-website/main/posts/fire-revival.md"
+    );
 
-    container.innerHTML = "";
+    if (!response.ok) {
+      throw new Error("Post file not found");
+    }
 
-    data.forEach(async (file) => {
-      const postRes = await fetch(file.download_url);
-      const text = await postRes.text();
+    const text = await response.text();
 
-      const titleMatch = text.match(/title:\s*(.*)/);
-      const bodyMatch = text.split('---')[2];
+    const titleMatch = text.match(/title:\s*(.*)/);
+    const dateMatch = text.match(/date:\s*(.*)/);
 
-      const title = titleMatch ? titleMatch[1] : "No Title";
-      const body = bodyMatch ? body.substring(0, 100) + "..." : "";
+    const parts = text.split("---");
+    const body = parts.length >= 3 ? parts[2].trim() : "";
 
-      container.innerHTML += `
-        <div class="post">
-          <h3>${title}</h3>
-          <p>${body}</p>
-        </div>
-      `;
-    });
+    const title = titleMatch ? titleMatch[1].trim() : "No Title";
+    const date = dateMatch ? dateMatch[1].trim() : "";
+    const preview = body.length > 160 ? body.substring(0, 160) + "..." : body;
 
+    container.innerHTML = `
+      <div class="post">
+        <h3>${title}</h3>
+        <small>${date}</small>
+        <p>${preview}</p>
+      </div>
+    `;
   } catch (error) {
-    container.innerHTML = "Failed to load sermons.";
+    container.innerHTML = "<p>Failed to load sermons.</p>";
+    console.error(error);
   }
 }
 
