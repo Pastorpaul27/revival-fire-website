@@ -1071,9 +1071,12 @@ footer {
   box-shadow: 0 0 10px rgba(255, 69, 0, 0.3);
 }
 
+.post-card {
+  transition: all 0.3s ease;
+}
+
 .post-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 20px rgba(255, 69, 0, 0.6);
+  transform: translateY(-8px);
 }
 
 /* TITLE */
