@@ -66,3 +66,37 @@ const countdownFunction = setInterval(function () {
     document.querySelector(".countdown-section").innerHTML = "<h3>The Event Has Started 🔥</h3>";
   }
 }, 1000);
+
+async function loadPosts() {
+  const container = document.getElementById("posts-container");
+
+  try {
+    const response = await fetch("https://api.github.com/repos/Pastorpaul27/revival-fire-website/contents/posts");
+    const data = await response.json();
+
+    container.innerHTML = "";
+
+    data.forEach(async (file) => {
+      const postRes = await fetch(file.download_url);
+      const text = await postRes.text();
+
+      const titleMatch = text.match(/title:\s*(.*)/);
+      const bodyMatch = text.split('---')[2];
+
+      const title = titleMatch ? titleMatch[1] : "No Title";
+      const body = bodyMatch ? body.substring(0, 100) + "..." : "";
+
+      container.innerHTML += `
+        <div class="post">
+          <h3>${title}</h3>
+          <p>${body}</p>
+        </div>
+      `;
+    });
+
+  } catch (error) {
+    container.innerHTML = "Failed to load sermons.";
+  }
+}
+
+loadPosts();

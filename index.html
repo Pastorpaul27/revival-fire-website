@@ -10,6 +10,8 @@
   <meta name="apple-mobile-web-app-title" content="Revival Fire Movement" />
   <meta name="google-site-verification" content="MWA6_Upmt65D9s9xEPZRbGM8fXt6G79iEgOUe_tkUkM">
 
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
  <title>Revival Fire Movement | Revival, Prayer & Worship in Sierra Leone</title>
 
 <!-- SEO META TAGS -->
@@ -106,6 +108,11 @@
   </div>
 </div>
   </div>
+</section>
+
+<section id="sermons">
+  <h2>Latest Sermons</h2>
+  <div id="posts-container"></div>
 </section>
 
   <section class="about" id="about">
@@ -333,5 +340,16 @@
 </div>
 
   <script src="script.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", (user) => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
 </body>
 </html>
