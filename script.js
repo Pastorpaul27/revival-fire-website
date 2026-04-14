@@ -77,12 +77,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
       posts.forEach(post => {
         container.innerHTML += `
-          <div class="post">
-            <h3>${post.title}</h3>
-            <small>${post.date}</small>
-            <p>${post.body}</p>
-          </div>
-        `;
+  <div class="post-card">
+    <h3>${post.title}</h3>
+    <small>${post.date}</small>
+    <p>${post.body.substring(0, 120)}...</p>
+    <button class="read-btn">Read More</button>
+  </div>
+`;
       });
     })
     .catch(() => {
