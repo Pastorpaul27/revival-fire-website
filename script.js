@@ -67,42 +67,39 @@ const countdownFunction = setInterval(function () {
   }
 }, 1000);
 
-async function loadPosts() {
+document.addEventListener("DOMContentLoaded", function () {
   const container = document.getElementById("posts-container");
-  if (!container) return;
 
-  try {
-    const response = await fetch(
-      "https://raw.githubusercontent.com/Pastorpaul27/revival-fire-website/main/posts/fire-revival.md"
-    );
-
-    if (!response.ok) {
-      throw new Error("Post file not found");
-    }
-
-    const text = await response.text();
-
-    const titleMatch = text.match(/title:\s*(.*)/);
-    const dateMatch = text.match(/date:\s*(.*)/);
-
-    const parts = text.split("---");
-    const body = parts.length >= 3 ? parts[2].trim() : "";
-
-    const title = titleMatch ? titleMatch[1].trim() : "No Title";
-    const date = dateMatch ? dateMatch[1].trim() : "";
-    const preview = body.length > 160 ? body.substring(0, 160) + "..." : body;
-
-    container.innerHTML = `
-      <div class="post">
-        <h3>${title}</h3>
-        <small>${date}</small>
-        <p>${preview}</p>
-      </div>
-    `;
-  } catch (error) {
-    container.innerHTML = "<p>Failed to load sermons.</p>";
-    console.error(error);
+  if (!container) {
+    console.log("Container not found");
+    return;
   }
-}
+
+  fetch("https://raw.githubusercontent.com/Pastorpaul27/revival-fire-website/main/posts/fire-revival.md")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Failed to fetch post");
+      }
+      return response.text();
+    })
+    .then(text => {
+      const title = text.match(/title:\s*(.*)/)[1];
+      const date = text.match(/date:\s*(.*)/)[1];
+
+      const body = text.split("---")[2].trim();
+
+      container.innerHTML = `
+        <div class="post">
+          <h3>${title}</h3>
+          <small>${date}</small>
+          <p>${body}</p>
+        </div>
+      `;
+    })
+    .catch(error => {
+      console.error(error);
+      container.innerHTML = "<p>Failed to load sermons.</p>";
+    });
+});
 
 loadPosts();
