@@ -96,7 +96,10 @@ function displayPosts(posts) {
       <div class="post-card">
         <img src="${post.image}" class="post-img">
         <h3>${post.title}</h3>
-        <small>${post.date} • ${post.category}</small>
+        <small>
+  ${post.date} 
+  <span class="category-badge">${post.category}</span>
+</small>
         <p>${post.body.substring(0, 120)}...</p>
         <a href="sermon.html?title=${encodeURIComponent(post.title)}&body=${encodeURIComponent(post.body)}&date=${post.date}&image=${post.image}&video=${encodeURIComponent(post.video)}" class="read-btn">Read More</a>
       </div>
