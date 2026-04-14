@@ -70,39 +70,25 @@ const countdownFunction = setInterval(function () {
 document.addEventListener("DOMContentLoaded", function () {
   const container = document.getElementById("posts-container");
 
-  if (!container) {
-    console.log("Container not found");
-    return;
-  }
+  fetch("posts.json")
+    .then(res => res.json())
+    .then(posts => {
+      container.innerHTML = "";
 
-  fetch("https://raw.githubusercontent.com/Pastorpaul27/revival-fire-website/main/posts/fire-revival.md")
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Failed to fetch post");
-      }
-      return response.text();
+      posts.forEach(post => {
+        container.innerHTML += `
+          <div class="post">
+            <h3>${post.title}</h3>
+            <small>${post.date}</small>
+            <p>${post.body}</p>
+          </div>
+        `;
+      });
     })
-    .then(text => {
-      const title = text.match(/title:\s*(.*)/)[1];
-      const date = text.match(/date:\s*(.*)/)[1];
-
-      const body = text.split("---")[2].trim();
-
-      container.innerHTML = `
-        <div class="post">
-          <h3>${title}</h3>
-          <small>${date}</small>
-          <p>${body}</p>
-        </div>
-      `;
-    })
-    .catch(error => {
-      console.error(error);
+    .catch(() => {
       container.innerHTML = "<p>Failed to load sermons.</p>";
     });
 });
-
-loadPosts();
 
 async function loadPosts() {
   const container = document.getElementById("posts-container");
