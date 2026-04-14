@@ -1234,3 +1234,110 @@ footer {
     font-size: 21px;
   }
 }
+
+/* LIVE STREAMING PAGE */
+.live-page {
+  min-height: 100vh;
+  background: #090909;
+  color: #ffffff;
+  padding: 120px 20px 60px;
+}
+
+.live-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.live-intro {
+  max-width: 850px;
+  margin: 20px auto;
+  font-size: 18px;
+  color: #e8e8e8;
+}
+
+.live-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0 30px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 69, 0, 0.35);
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: red;
+  box-shadow: 0 0 10px red;
+}
+
+.live-video-box {
+  margin: 30px auto;
+  max-width: 950px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 69, 0, 0.35);
+  box-shadow: 0 0 20px rgba(255, 69, 0, 0.15);
+}
+
+.live-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+  margin-top: 35px;
+}
+
+.live-card {
+  background: linear-gradient(145deg, #151515, #050505);
+  border: 1px solid rgba(255, 69, 0, 0.35);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 0 18px rgba(255, 69, 0, 0.10);
+}
+
+.live-card h3 {
+  color: #ff4500;
+  margin-bottom: 14px;
+  font-size: 22px;
+}
+
+.live-card p {
+  color: #ededed;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.live-card a {
+  color: #ffb27a;
+  text-decoration: none;
+}
+
+.live-card a:hover {
+  color: #ffffff;
+}
+
+.back-home {
+  margin-top: 35px;
+}
+
+@media (max-width: 600px) {
+  .live-page {
+    padding: 110px 14px 50px;
+  }
+
+  .live-intro {
+    font-size: 16px;
+  }
+
+  .live-video-box iframe {
+    height: 240px;
+  }
+
+  .live-card {
+    padding: 18px;
+  }
+}
