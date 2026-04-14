@@ -1153,3 +1153,12 @@ footer {
   border: 1px solid #ff4500;
   outline: none;
 }
+
+.category-badge {
+  background: #ff4500;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 10px;
+  margin-left: 8px;
+  font-size: 12px;
+}
