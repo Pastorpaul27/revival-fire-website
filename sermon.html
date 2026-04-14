@@ -20,6 +20,13 @@
     <a href="index.html#sermons" class="btn">Back to Sermons</a>
   </div>
 </section>
+<script>
+  const params = new URLSearchParams(window.location.search);
 
+  document.getElementById("sermon-title").innerText = params.get("title");
+  document.getElementById("sermon-date").innerText = params.get("date");
+  document.getElementById("sermon-body").innerText = params.get("body");
+</script>
+  
 </body>
 </html>
