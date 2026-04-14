@@ -103,3 +103,48 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 loadPosts();
+
+async function loadPosts() {
+  const container = document.getElementById("posts-container");
+  if (!container) {
+    console.log("posts-container not found");
+    return;
+  }
+
+  const url = "https://raw.githubusercontent.com/Pastorpaul27/revival-fire-website/main/posts/fire-revival.md";
+  console.log("Loading post from:", url);
+
+  try {
+    const response = await fetch(url);
+    console.log("Response status:", response.status);
+
+    if (!response.ok) {
+      throw new Error("Post file not found");
+    }
+
+    const text = await response.text();
+    console.log("Loaded text:", text);
+
+    const titleMatch = text.match(/title:\s*(.*)/);
+    const dateMatch = text.match(/date:\s*(.*)/);
+    const parts = text.split("---");
+    const body = parts.length >= 3 ? parts[2].trim() : "";
+
+    const title = titleMatch ? titleMatch[1].trim() : "No Title";
+    const date = dateMatch ? dateMatch[1].trim() : "";
+    const preview = body.length > 160 ? body.substring(0, 160) + "..." : body;
+
+    container.innerHTML = `
+      <div class="post">
+        <h3>${title}</h3>
+        <small>${date}</small>
+        <p>${preview}</p>
+      </div>
+    `;
+  } catch (error) {
+    console.error("Sermon load error:", error);
+    container.innerHTML = "<p>Failed to load sermons.</p>";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", loadPosts);
