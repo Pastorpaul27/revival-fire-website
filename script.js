@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <h3>${post.title}</h3>
     <small>${post.date}</small>
     <p>${post.body.substring(0, 120)}...</p>
-    <a href="sermon.html" class="read-btn">Read More</a>
+    <a href="sermon.html?title=${encodeURIComponent(post.title)}&body=${encodeURIComponent(post.body)}&date=${post.date}" class="read-btn">Read More</a>
   </div>
 `;
       });
