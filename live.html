@@ -120,6 +120,25 @@
     indicator.style.display = "block";
   }, 2000);
 </script>
+
+<script>
+  function showPlatform(platform) {
+    const youtubeBox = document.getElementById("youtube-platform");
+    const facebookBox = document.getElementById("facebook-platform");
+    const buttons = document.querySelectorAll(".platform-btn");
+
+    youtubeBox.style.display = platform === "youtube" ? "block" : "none";
+    facebookBox.style.display = platform === "facebook" ? "block" : "none";
+
+    buttons.forEach(btn => btn.classList.remove("active-platform"));
+
+    if (platform === "youtube") {
+      buttons[0].classList.add("active-platform");
+    } else {
+      buttons[1].classList.add("active-platform");
+    }
+  }
+</script>  
   
 </body>
 </html>
