@@ -23,24 +23,56 @@
 
 <div class="live-layout">
 
+  <div class="platform-switcher">
+  <button class="platform-btn active-platform" onclick="showPlatform('youtube')">YouTube Live</button>
+  <button class="platform-btn" onclick="showPlatform('facebook')">Facebook Live</button>
+</div>
+
+<div id="youtube-platform" class="platform-box">
+  <div class="live-layout">
+    <div class="live-video-box">
+      <iframe
+        width="100%"
+        height="450"
+        src="https://www.youtube.com/embed/YOUR_YOUTUBE_VIDEO_ID"
+        title="YouTube Live Stream"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="live-chat-box">
+      <iframe
+        width="100%"
+        height="450"
+        src="https://www.youtube.com/live_chat?v=YOUR_YOUTUBE_VIDEO_ID&embed_domain=revivalfiremovement.org"
+        title="YouTube Live Chat"
+        frameborder="0">
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<div id="facebook-platform" class="platform-box" style="display: none;">
   <div class="live-video-box">
     <iframe
+      src="https://www.facebook.com/plugins/video.php?href=YOUR_FACEBOOK_VIDEO_LINK&show_text=false"
       width="100%"
       height="450"
-      src="https://www.youtube.com/embed/gBhElkCS3nE"
+      style="border:none;overflow:hidden"
+      scrolling="no"
       frameborder="0"
       allowfullscreen>
     </iframe>
   </div>
 
-  <div class="live-chat-box">
-    <iframe
-      width="100%"
-      height="450"
-      src="https://www.youtube.com/live_chat?v=gBhElkCS3nE&embed_domain=revivalfiremovement.org"
-      frameborder="0">
-    </iframe>
+  <div class="live-chat-box live-chat-placeholder">
+    <h3>Facebook Live Chat</h3>
+    <p>Join the conversation directly on Facebook during the live broadcast.</p>
+    <a href="https://www.facebook.com/revivalfireishere" target="_blank" class="btn">Open Facebook Page</a>
   </div>
+</div>
 
 </div>
   <div class="live-social-buttons">
