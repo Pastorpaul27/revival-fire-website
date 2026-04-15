@@ -1385,3 +1385,39 @@ footer {
     opacity: 0.5;
   }
 }
+
+/* LIVE VIDEO + CHAT LAYOUT */
+.live-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  align-items: start;
+  margin: 30px auto;
+  max-width: 1200px;
+}
+
+.live-chat-box {
+  background: #111111;
+  border: 1px solid rgba(255, 69, 0, 0.35);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(255, 69, 0, 0.12);
+}
+
+@media (max-width: 900px) {
+  .live-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .live-chat-box iframe,
+  .live-video-box iframe {
+    height: 350px;
+  }
+}
+
+@media (max-width: 600px) {
+  .live-chat-box iframe,
+  .live-video-box iframe {
+    height: 260px;
+  }
+}
