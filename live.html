@@ -26,6 +26,7 @@
   <div class="platform-switcher">
   <button class="platform-btn active-platform" onclick="showPlatform('youtube')">YouTube Live</button>
   <button class="platform-btn" onclick="showPlatform('facebook')">Facebook Live</button>
+  <button class="platform-btn" onclick="showPlatform('tiktok')">TikTok</button>  
 </div>
 
 <div id="youtube-platform" class="platform-box">
@@ -66,6 +67,26 @@
       allowfullscreen>
     </iframe>
   </div>
+
+  <div id="tiktok-platform" class="platform-box" style="display: none;">
+  
+  <div class="live-video-box">
+    <iframe
+      src="https://www.tiktok.com/player/v1/7379933401819794693"
+      width="100%"
+      height="500"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div class="live-chat-box live-chat-placeholder">
+    <h3>TikTok Live</h3>
+    <p>Join us live on TikTok for short powerful sessions and engagement.</p>
+    <a href="https://www.tiktok.com/@pastor.paul27" target="_blank" class="btn">Open TikTok</a>
+  </div>
+
+</div>
 
   <div class="live-chat-box live-chat-placeholder">
     <h3>Facebook Live Chat</h3>
@@ -123,20 +144,23 @@
 
 <script>
   function showPlatform(platform) {
-    const youtubeBox = document.getElementById("youtube-platform");
-    const facebookBox = document.getElementById("facebook-platform");
+    const youtube = document.getElementById("youtube-platform");
+    const facebook = document.getElementById("facebook-platform");
+    const tiktok = document.getElementById("tiktok-platform");
+
     const buttons = document.querySelectorAll(".platform-btn");
 
-    youtubeBox.style.display = platform === "youtube" ? "block" : "none";
-    facebookBox.style.display = platform === "facebook" ? "block" : "none";
+    youtube.style.display = "none";
+    facebook.style.display = "none";
+    tiktok.style.display = "none";
+
+    document.getElementById(platform + "-platform").style.display = "block";
 
     buttons.forEach(btn => btn.classList.remove("active-platform"));
 
-    if (platform === "youtube") {
-      buttons[0].classList.add("active-platform");
-    } else {
-      buttons[1].classList.add("active-platform");
-    }
+    if (platform === "youtube") buttons[0].classList.add("active-platform");
+    if (platform === "facebook") buttons[1].classList.add("active-platform");
+    if (platform === "tiktok") buttons[2].classList.add("active-platform");
   }
 </script>  
   
