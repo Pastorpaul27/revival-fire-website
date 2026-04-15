@@ -6,6 +6,18 @@
   <title>Live Streaming | Revival Fire Movement</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+<script>
+  const LIVE_CONFIG = {
+    platform: "youtube", // youtube | facebook | tiktok
+
+    status: "🔴 LIVE NOW",
+
+    youtubeVideoId: "PUT_YOUR_YOUTUBE_VIDEO_ID",
+    facebookVideo: "PUT_FACEBOOK_VIDEO_LINK",
+    tiktokVideoId: "7379933401819794693"
+  };
+</script>
+  
 <body>
 
   <section class="live-page">
@@ -32,24 +44,20 @@
 <div id="youtube-platform" class="platform-box">
   <div class="live-layout">
     <div class="live-video-box">
-      <iframe
-        width="100%"
-        height="450"
-        src="https://www.youtube.com/embed/YOUR_YOUTUBE_VIDEO_ID"
-        title="YouTube Live Stream"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen>
-      </iframe>
-    </div>
+  <iframe
+     id="youtube-frame"
+     width="100%"
+     height="450"
+     frameborder="0"
+     allowfullscreen>
+  </iframe>
+ </div>
 
     <div class="live-chat-box">
       <iframe
-        width="100%"
-        height="450"
-        src="https://www.youtube.com/live_chat?v=YOUR_YOUTUBE_VIDEO_ID&embed_domain=revivalfiremovement.org"
-        title="YouTube Live Chat"
-        frameborder="0">
+         id="youtube-chat"
+         width="100%"
+         height="450"
       </iframe>
     </div>
   </div>
@@ -57,15 +65,7 @@
 
 <div id="facebook-platform" class="platform-box" style="display: none;">
   <div class="live-video-box">
-    <iframe
-      src="https://www.facebook.com/plugins/video.php?href=YOUR_FACEBOOK_VIDEO_LINK&show_text=false"
-      width="100%"
-      height="450"
-      style="border:none;overflow:hidden"
-      scrolling="no"
-      frameborder="0"
-      allowfullscreen>
-    </iframe>
+    <iframe id="facebook-frame" width="100%" height="450"></iframe>
   </div>
 
   <div id="tiktok-platform" class="platform-box" style="display: none;">
@@ -163,6 +163,51 @@
     if (platform === "tiktok") buttons[2].classList.add("active-platform");
   }
 </script>  
+
+<script>
+  function applyLiveConfig() {
+    // Set status
+    const statusEl = document.querySelector(".live-status span:last-child");
+    if (statusEl) statusEl.innerText = LIVE_CONFIG.status;
+
+    // YouTube
+    const yt = document.getElementById("youtube-frame");
+    const ytChat = document.getElementById("youtube-chat");
+
+    if (yt) {
+      yt.src = "https://www.youtube.com/embed/" + LIVE_CONFIG.youtubeVideoId;
+    }
+
+    if (ytChat) {
+      ytChat.src =
+        "https://www.youtube.com/live_chat?v=" +
+        LIVE_CONFIG.youtubeVideoId +
+        "&embed_domain=revivalfiremovement.org";
+    }
+
+    // Facebook
+    const fb = document.getElementById("facebook-frame");
+    if (fb) {
+      fb.src =
+        "https://www.facebook.com/plugins/video.php?href=" +
+        LIVE_CONFIG.facebookVideo +
+        "&show_text=false";
+    }
+
+    // TikTok
+    const tt = document.getElementById("tiktok-frame");
+    if (tt) {
+      tt.src =
+        "https://www.tiktok.com/player/v1/" +
+        LIVE_CONFIG.tiktokVideoId;
+    }
+
+    // Show selected platform
+    showPlatform(LIVE_CONFIG.platform);
+  }
+
+  document.addEventListener("DOMContentLoaded", applyLiveConfig);
+</script>
   
 </body>
 </html>
